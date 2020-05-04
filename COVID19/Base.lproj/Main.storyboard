@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Countries-->
+        <!--CountriesVC-->
         <scene sceneID="b4Y-K3-cYX">
             <objects>
                 <viewController id="6bu-Xa-SXQ" customClass="CountriesVC" customModule="COVID19" customModuleProvider="target" sceneMemberID="viewController">
@@ -134,7 +134,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RUD-vK-gil"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Countries" id="Byh-kz-nRd"/>
+                    <tabBarItem key="tabBarItem" title="" image="icons8-flag-2-50" id="Byh-kz-nRd"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="2I3-Yk-K5T" id="sPO-xZ-Ipu"/>
                         <outlet property="tableView" destination="WUF-3U-TNp" id="Q5d-Ms-FFn"/>
@@ -152,7 +152,7 @@
             </objects>
             <point key="canvasLocation" x="869.56521739130437" y="-380.70652173913044"/>
         </scene>
-        <!--About-->
+        <!--View Controller-->
         <scene sceneID="hp6-ku-FVv">
             <objects>
                 <viewController id="bpw-1a-3Wh" sceneMemberID="viewController">
@@ -162,13 +162,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="C5y-sT-bCQ"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="About" id="CN5-yb-cWb"/>
+                    <tabBarItem key="tabBarItem" title="" image="icons8-info-50" id="CN5-yb-cWb"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lJ8-cR-NxI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1785.5072463768117" y="-381.52173913043481"/>
         </scene>
-        <!--Global-->
+        <!--GlobalVC-->
         <scene sceneID="m28-Fr-MQU">
             <objects>
                 <viewController id="4uS-3H-LZP" customClass="GlobalVC" customModule="COVID19" customModuleProvider="target" sceneMemberID="viewController">
@@ -290,9 +290,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5gO-mz-SXT"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Global" id="VeZ-0i-v81">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="" image="icons8-globe-50" id="VeZ-0i-v81"/>
                     <connections>
                         <outlet property="casesLabel" destination="RTX-2h-jBy" id="Ew3-4J-IOU"/>
                         <outlet property="coronaImageView" destination="8tN-9F-Prs" id="lN6-Ab-4qD"/>
@@ -330,6 +328,9 @@
     <resources>
         <image name="coronaVirus" width="512" height="512"/>
         <image name="deaths" width="512" height="512"/>
+        <image name="icons8-flag-2-50" width="50" height="50"/>
+        <image name="icons8-globe-50" width="50" height="50"/>
+        <image name="icons8-info-50" width="50" height="50"/>
         <image name="recovered" width="512" height="512"/>
     </resources>
 </document>

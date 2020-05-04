@@ -23,6 +23,8 @@ class GlobalVC: UIViewController {
     
     var globalInfo: GlobalInfo = GlobalInfo()
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "global.png",
+      "filename" : "icons8-globe-50.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "icons8-globe-100.png",
       "scale" : "2x"
     },
     {
