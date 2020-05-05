@@ -10,19 +10,73 @@ import UIKit
 
 class CountriesVC: UIViewController {
 
+    @IBOutlet weak var countrySearchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     var countries: [Countries] = [Countries]()
+    
+    private var refreshController:UIRefreshControl = UIRefreshControl()
+    
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    var searchQuery: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewConfigure()
+    }
+    
+    func viewConfigure() {
+        
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = .gray
+        
+        countrySearchBar.delegate = self
+        countrySearchBar.barTintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        countrySearchBar.layer.borderWidth = 2
+        countrySearchBar.layer.cornerRadius = 20
+        countrySearchBar.returnKeyType = .search
+        
         tableView.delegate = self
         tableView.dataSource = self
         
-        hundleRefreach()
+        refreshController.addTarget(self, action: #selector(refreshTheTableView), for: UIControlEvents.valueChanged)
+        self.tableView.refreshControl = refreshController
+        self.tableView.addSubview(refreshController)
+        
+        loadCountry()
+    }
+    func startActivityIndicator(){
+        
+        self.view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        //        UIApplication.shared.beginIgnoringInteractionEvents()
     }
     
-    func hundleRefreach() {
+    func stopActivityIndicator(){
+        activityIndicator.stopAnimating()
+        //        UIApplication.shared.endIgnoringInteractionEvents()
+        
+    }
+    @objc func refreshTheTableView(){
+        self.countrySearchBar.text = nil
+        self.loadCountry()
+        self.refreshController.endRefreshing()
+    }
+    func loadCountry() {
+        startActivityIndicator()
         Api.GetCountries { (error: Error?, country: [Countries]?) in
+            if let country = country {
+                self.countries = country
+                
+                self.tableView.reloadData()
+                self.stopActivityIndicator()
+            }
+        }
+    }
+    func searchCountries() {
+        Api.GetSearchCountry(query: searchQuery) { (error: Error?, country: [Countries]?) in
             if let country = country {
                 self.countries = country
                 
@@ -32,7 +86,20 @@ class CountriesVC: UIViewController {
     }
 }
 
-extension CountriesVC: UITableViewDelegate,UITableViewDataSource {
+extension CountriesVC: UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        if let queryTerm = searchBar.text, queryTerm.trimmingCharacters(in: [" "]) != ""{
+            
+            self.countries.removeAll()
+            
+            self.searchQuery = queryTerm
+            
+            searchCountries()
+        }
+        self.view.endEditing(true)
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return countries.count
     }

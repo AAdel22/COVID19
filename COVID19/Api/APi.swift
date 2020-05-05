@@ -71,4 +71,38 @@ class Api {
             }
         }
     }
+    
+    class func GetSearchCountry(query: String,completion: @escaping (_ error: Error?,_ country: [Countries]?)-> Void) {
+        let url = "https://corona-virus-stats.herokuapp.com/api/v1/cases/countries-search?search=\(query)"
+        Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil) .responseJSON { response in
+            switch response.result {
+            case .failure(let error):
+                completion(error, nil)
+                print(error)
+            case .success(let value):
+                let json = JSON(value)
+                print(json)
+                
+                guard let dataArr = json["data"]["rows"].array else {
+                    completion(nil,nil)
+                    return
+                }
+                
+                var countries = [Countries]()
+                
+                for data in dataArr {
+                    guard let data = data.dictionary else {return}
+                    let country = Countries()
+                    country.country = data["country"]?.string ?? ""
+                    country.totalCases = data["total_cases"]?.string ?? ""
+                    country.totalDeaths = data["total_deaths"]?.string ?? ""
+                    country.totalRecovered = data["total_recovered"]?.string ?? ""
+                    country.flag = data["flag"]?.string ?? ""
+                    countries.append(country)
+                }
+                completion(nil,countries)
+            }
+        }
+    }
+    
 }

@@ -8,30 +8,62 @@
 
 import UIKit
 
-class GlobalVC: UIViewController {
+class GlobalVC: UIViewController,UIGestureRecognizerDelegate {
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    var refreshControl = UIRefreshControl()
+    
+    @IBOutlet weak var lastUbdateLabel: UILabel!
     
     @IBOutlet weak var coronaImageView: UIImageView!
     @IBOutlet weak var recoveredImageView: UIImageView!
-    
     @IBOutlet weak var deathsImageView: UIImageView!
+    
     @IBOutlet weak var worldBackgroundView: UIView!
     
     @IBOutlet weak var casesLabel: UILabel!
     @IBOutlet weak var recoveredLabel: UILabel!
     @IBOutlet weak var deathsLabel: UILabel!
     
+//    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
     var globalInfo: GlobalInfo = GlobalInfo()
     
-    
+    private var refreshController:UIRefreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        designView()
-       hundleRefreach()
+//        activityIndicator.center = self.view.center
+//        activityIndicator.hidesWhenStopped = true
+//        activityIndicator.activityIndicatorViewStyle = .gray
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+        self.scrollView.isScrollEnabled = true
+        self.scrollView.alwaysBounceVertical = true
+        scrollView.addSubview(refreshControl)
+        
+        viewDesign()
     }
-    func designView() {
+//    func startActivityIndicator(){
+//        self.view.addSubview(activityIndicator)
+//        activityIndicator.startAnimating()
+//    }
+//
+//    func stopActivityIndicator(){
+//        activityIndicator.stopAnimating()
+//    }
+    @objc func refresh(sender:AnyObject) {
+        // Code to refresh table view
+
+        self.hundleRefreach()
+        refreshControl.endRefreshing()
+
+    }
+
+    func viewDesign() {
+        
         
         worldBackgroundView.layer.cornerRadius = 25
         worldBackgroundView.layer.borderWidth = 3
@@ -46,17 +78,19 @@ class GlobalVC: UIViewController {
         
         deathsImageView.layer.cornerRadius = deathsImageView.frame.width / 2
         deathsImageView.layer.masksToBounds = true
-        
     }
-    
     func hundleRefreach() {
+//        startActivityIndicator()
         Api.GetGlobalInfo { (error: Error?,globaInfo: GlobalInfo?) in
             if let globalInfo = globaInfo {
                 self.globalInfo = globalInfo
+                self.lastUbdateLabel.text = globalInfo.last_update
                 self.casesLabel.text = globalInfo.total_cases
                 self.recoveredLabel.text = globalInfo.recovery_cases
                 self.deathsLabel.text = globalInfo.death_cases
+//                self.stopActivityIndicator()
             }
+            
         }
     }
    
