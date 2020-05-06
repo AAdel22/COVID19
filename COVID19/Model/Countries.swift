@@ -13,6 +13,8 @@ class Countries {
     var flag: String?
     var country: String?
     var totalCases: String?
+    var newCases: String?
     var totalDeaths: String?
+    var newDeaths: String?
     var totalRecovered: String?
 }

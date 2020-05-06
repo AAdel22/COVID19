@@ -61,7 +61,9 @@ class Api {
                     let country = Countries()
                     country.country = data["country"]?.string ?? ""
                     country.totalCases = data["total_cases"]?.string ?? ""
+                    country.newCases = data["new_cases"]?.string ?? ""
                     country.totalDeaths = data["total_deaths"]?.string ?? ""
+                    country.newDeaths = data["new_deaths"]?.string ?? ""
                     country.totalRecovered = data["total_recovered"]?.string ?? ""
                     country.flag = data["flag"]?.string ?? ""
                     countries.append(country)
@@ -95,7 +97,9 @@ class Api {
                     let country = Countries()
                     country.country = data["country"]?.string ?? ""
                     country.totalCases = data["total_cases"]?.string ?? ""
+                    country.newCases = data["new_cases"]?.string ?? ""
                     country.totalDeaths = data["total_deaths"]?.string ?? ""
+                    country.newDeaths = data["new_deaths"]?.string ?? ""
                     country.totalRecovered = data["total_recovered"]?.string ?? ""
                     country.flag = data["flag"]?.string ?? ""
                     countries.append(country)

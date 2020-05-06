@@ -43,7 +43,7 @@ class GlobalVC: UIViewController,UIGestureRecognizerDelegate {
         self.scrollView.isScrollEnabled = true
         self.scrollView.alwaysBounceVertical = true
         scrollView.addSubview(refreshControl)
-        
+        hundleRefreach()
         viewDesign()
     }
 //    func startActivityIndicator(){
@@ -69,7 +69,7 @@ class GlobalVC: UIViewController,UIGestureRecognizerDelegate {
         worldBackgroundView.layer.borderWidth = 3
         worldBackgroundView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         worldBackgroundView.clipsToBounds = true
-        
+        worldBackgroundView.backgroundColor = #colorLiteral(red: 0.00140971283, green: 0.5991161466, blue: 0.8007747531, alpha: 1)
         coronaImageView.layer.cornerRadius = coronaImageView.frame.width / 1.5
         coronaImageView.layer.masksToBounds = true
         
